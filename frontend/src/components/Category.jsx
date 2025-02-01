@@ -6,7 +6,7 @@ function Category({ openModal, tasks, todos, doings, dones, setTasks }) {
     return (
         <div className="container-fluid mt-2">
             <div className="row justify-content-center">
-                <div className="col-4">
+                <div className="col-12 col-sm-6 col-md-4">
                     <div className="card category-card">
                         <div className="card-body">
                             <h5 className="card-title category-title">To Do</h5>
@@ -19,7 +19,7 @@ function Category({ openModal, tasks, todos, doings, dones, setTasks }) {
                         </div>
                     </div>
                 </div>
-                <div className="col-4">
+                <div className="col-12 col-sm-6 col-md-4">
                     <div className="card category-card">
                         <div className="card-body">
                             <h5 className="card-title category-title">Doing</h5>
@@ -31,7 +31,7 @@ function Category({ openModal, tasks, todos, doings, dones, setTasks }) {
                         </div>
                     </div>
                 </div>
-                <div className="col-4">
+                <div className="col-12 col-sm-6 col-md-4">
                     <div className="card category-card">
                         <div className="card-body">
                             <h5 className="card-title category-title">Done</h5>
