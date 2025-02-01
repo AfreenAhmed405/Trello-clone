@@ -2,7 +2,8 @@ import React from "react";
 import BoardHeader from "./BoardHeader";
 import Category from "./Category";
 
-function Board({ tasks }) {
+function Board({ tasks, setTasks, openModal }) {
+
 
     function getTodos() {
         return tasks.filter((task) => task.status === "todo");
@@ -18,7 +19,7 @@ function Board({ tasks }) {
     return (
         <>
             {/*<BoardHeader />*/}
-            <Category todos={getTodos()} doings={getDoings()} dones={getDones()} />
+            <Category openModal={openModal} tasks={tasks} todos={getTodos()} doings={getDoings()} dones={getDones()} setTasks={setTasks} />
         </>
     )
 }

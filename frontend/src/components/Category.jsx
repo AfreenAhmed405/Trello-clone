@@ -1,7 +1,7 @@
 import React from "react";
 import Card from "./Card";
 
-function Category({ todos, doings, dones }) {
+function Category({ openModal, tasks, todos, doings, dones, setTasks }) {
 
     return (
         <div className="container-fluid mt-2">
@@ -12,9 +12,10 @@ function Category({ todos, doings, dones }) {
                             <h5 className="card-title category-title">To Do</h5>
                             {
                                 todos && todos.length > 0 ? (
-                                    todos.map((todo) => <Card key={todo.id} task={todo} />)
+                                    todos.map((todo) => <Card key={todo.id} task={todo} tasks={tasks} setTasks={setTasks} />)
                                 ) : (<span>Empty</span>)
                             }
+                            <p className="add-button mt-4" onClick={openModal}>+ Add a Task</p>
                         </div>
                     </div>
                 </div>
@@ -24,7 +25,7 @@ function Category({ todos, doings, dones }) {
                             <h5 className="card-title category-title">Doing</h5>
                             {
                                 doings && doings.length > 0 ? (
-                                    doings.map((doing) => <Card key={doing.id} task={doing} />)
+                                    doings.map((doing) => <Card key={doing.id} task={doing} tasks={tasks} setTasks={setTasks} />)
                                 ) : (<span>Empty</span>)
                             }
                         </div>
@@ -36,7 +37,7 @@ function Category({ todos, doings, dones }) {
                             <h5 className="card-title category-title">Done</h5>
                             {
                                 dones && dones.length > 0 ? (
-                                    dones.map((done) => <Card key={done.id} task={done}/>)
+                                    dones.map((done) => <Card key={done.id} task={done} tasks={tasks} setTasks={setTasks} />)
                                 ) : (<span>Empty</span>)
                             }
                         </div>
@@ -44,8 +45,7 @@ function Category({ todos, doings, dones }) {
                 </div>
             </div>
         </div>
-
-    )
+    );
 }
 
 export default Category;
