@@ -43,8 +43,7 @@ public class TaskController {
         return new ResponseEntity<>("Deleted.", HttpStatus.OK);
     }
 
-    @GetMapping("/") public String health()
-    {
+    @GetMapping("/") public String health() {
         return "App is healthy";
     }
 }

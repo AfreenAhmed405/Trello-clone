@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:postgresql://personaldb.cjwg4aeoumkm.us-east-2.rds.amazonaws.com/postgres
     username: postgres
-    password: database-personal-postgres
+    password:
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     generate-ddl: true
