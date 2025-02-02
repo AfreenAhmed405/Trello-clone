@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:8080/tasks";
+const API_BASE_URL = "http://trelloforsam-backend.us-east-2.elasticbeanstalk.com/tasks";
 
 export const addTask = (task) => {
     return axios.post(API_BASE_URL, task);
