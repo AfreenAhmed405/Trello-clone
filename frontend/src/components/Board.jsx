@@ -2,7 +2,7 @@ import React from "react";
 import BoardHeader from "./BoardHeader";
 import Category from "./Category";
 
-function Board({ tasks, setTasks, openModal }) {
+function Board({ tasks, setTasks, openNewModal, openEditModal, onEditClick }) {
 
 
     function getTodos() {
@@ -19,7 +19,7 @@ function Board({ tasks, setTasks, openModal }) {
     return (
         <>
             {/*<BoardHeader />*/}
-            <Category openModal={openModal} tasks={tasks} todos={getTodos()} doings={getDoings()} dones={getDones()} setTasks={setTasks} />
+            <Category openNewModal={openNewModal} openEditModal={openEditModal} onEditClick={onEditClick} tasks={tasks} todos={getTodos()} doings={getDoings()} dones={getDones()} setTasks={setTasks} />
         </>
     )
 }

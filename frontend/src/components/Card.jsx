@@ -1,6 +1,6 @@
 import React from "react";
 
-function Card({ task, tasks, setTasks }) {
+function Card({ task, tasks, setTasks, openEditModal, onEditClick }) {
 
     function deleteTask() {
         setTasks((prevTasks) =>
@@ -32,16 +32,18 @@ function Card({ task, tasks, setTasks }) {
                     <p className="card-text">{task.description}</p>
                     <div className="row">
                         <div className="col span-left">
+                            <i className="card-icons fa-regular fa-pen-to-square" onClick={() => onEditClick(task)}></i>
                             <i className="card-icons fa-regular fa-clock"></i>{task.deadline}
-                            <i className="card-icons fa-solid fa-trash" onClick={deleteTask} ></i>
                         </div>
 
                         <div className="col span-right">
                             {
                                 task.status !== "done" ? (
-                                    <span><i className="card-icons fa-solid fa-arrow-right-long" onClick={changeStatus} ></i></span>
+                                    <span><i className="card-icons fa-solid fa-trash" onClick={deleteTask}></i>
+                                    <i className="card-icons fa-solid fa-arrow-right-long" onClick={changeStatus} ></i></span>
                                 ) : (
-                                    <span><i className="fa-solid fa-check"></i></span>
+                                    <span><i className="card-icons fa-solid fa-trash" onClick={deleteTask}></i>
+                                        <i className="fa-solid fa-check"></i></span>
                                 )
                             }
                         </div>

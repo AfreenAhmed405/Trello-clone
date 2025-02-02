@@ -1,7 +1,7 @@
 import React from "react";
 import Card from "./Card";
 
-function Category({ openModal, tasks, todos, doings, dones, setTasks }) {
+function Category({ openNewModal, openEditModal, onEditClick, tasks, todos, doings, dones, setTasks }) {
 
     return (
         <div className="container-fluid mt-2">
@@ -12,10 +12,10 @@ function Category({ openModal, tasks, todos, doings, dones, setTasks }) {
                             <h5 className="card-title category-title">To Do</h5>
                             {
                                 todos && todos.length > 0 ? (
-                                    todos.map((todo) => <Card key={todo.id} task={todo} tasks={tasks} setTasks={setTasks} />)
-                                ) : (<span>Empty</span>)
+                                    todos.map((todo) => <Card key={todo.id} task={todo} tasks={tasks} setTasks={setTasks} openEditModal={openEditModal} onEditClick={onEditClick} />)
+                                ) : (<></>)
                             }
-                            <p className="add-button mt-4" onClick={openModal}>+ Add a Task</p>
+                            <p className="add-button mt-4" onClick={openNewModal}>+ Add a Task</p>
                         </div>
                     </div>
                 </div>
@@ -25,7 +25,7 @@ function Category({ openModal, tasks, todos, doings, dones, setTasks }) {
                             <h5 className="card-title category-title">Doing</h5>
                             {
                                 doings && doings.length > 0 ? (
-                                    doings.map((doing) => <Card key={doing.id} task={doing} tasks={tasks} setTasks={setTasks} />)
+                                    doings.map((doing) => <Card key={doing.id} task={doing} tasks={tasks} setTasks={setTasks} openEditModal={openEditModal} onEditClick={onEditClick} />)
                                 ) : (<span>Empty</span>)
                             }
                         </div>
@@ -37,7 +37,7 @@ function Category({ openModal, tasks, todos, doings, dones, setTasks }) {
                             <h5 className="card-title category-title">Done</h5>
                             {
                                 dones && dones.length > 0 ? (
-                                    dones.map((done) => <Card key={done.id} task={done} tasks={tasks} setTasks={setTasks} />)
+                                    dones.map((done) => <Card key={done.id} task={done} tasks={tasks} setTasks={setTasks} openEditModal={openEditModal} onEditClick={onEditClick} />)
                                 ) : (<span>Empty</span>)
                             }
                         </div>
