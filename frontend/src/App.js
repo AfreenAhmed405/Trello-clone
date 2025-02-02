@@ -1,7 +1,8 @@
 import './styles/App.css';
 import Header from "./components/Header";
 import Board from "./components/Board";
-import { useState } from "react";
+import {useEffect, useState} from "react";
+import {addTask, editTask, getTasks} from "./api";
 
 function App() {
     const [tasks, setTasks] = useState([]);
@@ -9,12 +10,19 @@ function App() {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [selectedTask, setSelectedTask] = useState(null);
 
+    useEffect(() => {
+        getTasks()
+            .then((response) => {
+                setTasks(response.data);
+            })
+    }, []);
+
     const handleEditClick = (task) => {
         setSelectedTask(task);
         setIsEditModalOpen(true);
     };
 
-    const editTask = (e) => {
+    const editTaskFn = (e) => {
         e.preventDefault();
         const updatedTask = {
             ...selectedTask,
@@ -25,7 +33,10 @@ function App() {
             status: e.target.taskStatus.value,
         };
 
-        // Update task list
+        editTask(selectedTask.id, updatedTask)
+            .catch((err) => {
+                console.log("Could not edit task.", err);
+            })
         setTasks(tasks.map((task) => (task.id === selectedTask.id ? updatedTask : task)));
         setIsEditModalOpen(false);
     };
@@ -36,17 +47,19 @@ function App() {
         return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
     }
 
-    function generateId() {
-        return 'id-' + Math.random().toString(36).substr(2, 9);
-    }
-
-    const addTask = (e) => {
+    const addTaskFn = (e) => {
         e.preventDefault();
-        const newTask = {id: generateId(), title: e.target.taskTitle.value, description: e.target.taskDesc.value, deadline: formatDate(e.target.taskDate.value), date: e.target.taskDate.value, status: e.target.taskStatus.value};
+        const newTask = {title: e.target.taskTitle.value, description: e.target.taskDesc.value, deadline: formatDate(e.target.taskDate.value), date: e.target.taskDate.value, status: e.target.taskStatus.value};
 
-        setTasks((prevTodos) => [
-            ...prevTodos, newTask
-        ]);
+        addTask(newTask)
+            .then((response) => {
+                setTasks((prevTodos) => [
+                    ...prevTodos, response.data
+                ]);
+            }).catch((err) => {
+                console.log("Could not create task.", err);
+        })
+
         setIsNewModalOpen(false);
     };
 
@@ -69,7 +82,7 @@ function App() {
                                 <h5 className="modal-title" id="exampleModalLabel">Add New Task</h5>
                                 <button type="button" className="btn-close" onClick={closeNewModal} aria-label="Close"></button>
                             </div>
-                            <form onSubmit={addTask}>
+                            <form onSubmit={addTaskFn}>
                                 <div className="modal-body">
                                     <label htmlFor="taskTitle" className="modal-form-label">
                                         Title
@@ -99,7 +112,7 @@ function App() {
                                         Status
                                     </label>
                                     <select id="taskStatus" className="modal-form-select" defaultValue="todo">
-                                        <option value="" disabled selected></option>
+                                        <option value="" disabled></option>
                                         <option value="todo">To Do</option>
                                         <option value="doing">Doing</option>
                                         <option value="done">Done</option>
@@ -125,7 +138,7 @@ function App() {
                                 <button type="button" className="btn-close" onClick={closeEditModal} aria-label="Close"></button>
                             </div>
                             <div className="modal-body">
-                                <form onSubmit={editTask}>
+                                <form onSubmit={editTaskFn}>
                                     <div className="modal-body">
                                         <label htmlFor="taskTitle" className="modal-form-label">
                                             Title
@@ -158,7 +171,6 @@ function App() {
                                             Status
                                         </label>
                                         <select id="taskStatus" className="modal-form-select" defaultValue={selectedTask.status} >
-                                            <option value="" disabled selected></option>
                                             <option value="todo">To Do</option>
                                             <option value="doing">Doing</option>
                                             <option value="done">Done</option>

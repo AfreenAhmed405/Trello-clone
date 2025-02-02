@@ -1,11 +1,17 @@
 import React from "react";
+import {deleteTask, editTask} from "../api";
 
 function Card({ task, tasks, setTasks, openEditModal, onEditClick }) {
 
-    function deleteTask() {
+    function deleteTaskFn() {
         setTasks((prevTasks) =>
             prevTasks.filter((item) => task.id !== item.id)
         );
+
+        deleteTask(task.id)
+            .catch((err) => {
+                console.log("Could not delete task,". err);
+            })
     }
 
     function changeStatus() {
@@ -22,6 +28,19 @@ function Card({ task, tasks, setTasks, openEditModal, onEditClick }) {
                 )
             );
         }
+
+        let updatedTask = {};
+
+        if (task.status === "todo") {
+            updatedTask = {id: task.id, title: task.title, description: task.description, deadline: task.deadline, date: task.date, status: "doing"}
+        } else if (task.status === "doing") {
+            updatedTask = {id: task.id, title: task.title, description: task.description, deadline: task.deadline, date: task.date, status: "done"}
+        }
+
+        editTask(task.id, updatedTask)
+            .catch((err) => {
+                console.log("Could not edit task.", err);
+            })
     }
 
     return (
@@ -39,10 +58,10 @@ function Card({ task, tasks, setTasks, openEditModal, onEditClick }) {
                         <div className="col span-right">
                             {
                                 task.status !== "done" ? (
-                                    <span><i className="card-icons fa-solid fa-trash" onClick={deleteTask}></i>
+                                    <span><i className="card-icons fa-solid fa-trash" onClick={deleteTaskFn}></i>
                                     <i className="card-icons fa-solid fa-arrow-right-long" onClick={changeStatus} ></i></span>
                                 ) : (
-                                    <span><i className="card-icons fa-solid fa-trash" onClick={deleteTask}></i>
+                                    <span><i className="card-icons fa-solid fa-trash" onClick={deleteTaskFn}></i>
                                         <i className="fa-solid fa-check"></i></span>
                                 )
                             }
