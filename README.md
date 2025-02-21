@@ -4,6 +4,8 @@ A task management app inspired by Trello, built using **React.js** for the front
 
 ![Capture](image.jpg)
 
+<img src="image.jpg" width="360" height="640">
+
 
 ## Tech Stack:
 - **Frontend:** React.js (hosted on AWS S3 & EC2)
